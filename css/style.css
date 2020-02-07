@@ -1,0 +1,34 @@
+/* desk */
+
+
+.mobile {
+    display: none;
+}
+
+.white-color {
+    color: aliceblue;
+}
+
+#name {
+    font-size: xx-large;
+}
+
+#search-i {
+    margin-left: 8px;
+    font-size: 34px;
+    cursor: pointer;
+}
+
+#header {
+    width: inherit;
+}
+
+@media only screen and (min-width: 768px) {
+}
+
+/* mobile */
+@media only screen and (max-width: 768px) {
+    .mobile {
+        display: block;
+    }
+}
