@@ -17,9 +17,8 @@ $.ajax({
 })
 
 // Pintar la data en cards 
-
-
 const printCard = (data) => {
+    const cards = document.getElementById('cards');
     data.map((r) => {
         const cardTemplate = `
 <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -77,13 +76,15 @@ const printCard = (data) => {
             </i>
         </li>
         <li class="list-inline-item">
-            <h5 class="card-title">Sitio web: <span id="web-site">${r.contact.site}</span></h5>
+            <h5 class="card-title">Sitio web: <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></h5>
         </li>
     </ul>
 </div>
 </div>
 `
-$('#cards').html(cardTemplate);
-    })
-    
-}
+        cards.insertAdjacentHTML('afterbegin', cardTemplate);
+    });
+};
+
+// hacer el conteo de estrellas pushear el número de estrellas chidas y el de estrellas chafas
+// acomodar las tarjetas pa que se vean bonitas
