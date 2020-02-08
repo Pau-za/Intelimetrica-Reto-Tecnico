@@ -9,6 +9,13 @@
     color: aliceblue;
 }
 
+#search-form {
+    top: -33em;
+    position: relative;
+    width: 800px;
+    z-index: 1;
+}
+
 #name {
     font-size: xx-large;
 }
@@ -21,10 +28,26 @@
 
 #header {
     width: inherit;
+    opacity: 0.5;
 }
 
-@media only screen and (min-width: 768px) {
+#copy-header {
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    top: -41em;
 }
+
+#card-header {
+    margin-bottom: 0em !important;
+    text-align: end;
+}
+
+.sm-icon {
+    font-size: 1em!important;
+}
+
+@media only screen and (min-width: 768px) {}
 
 /* mobile */
 @media only screen and (max-width: 768px) {
