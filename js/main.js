@@ -12,6 +12,7 @@ const printCard = (data, val) => {
     cards.innerHTML = '';
     shortData = data.slice(0, n);
     shortData.map((r) => {
+        console.log(shortData);
         const cardTemplate = `
         <div class="col-lg-4 col-md-6 col-sm-12">
 <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -68,8 +69,6 @@ const printCard = (data, val) => {
 `;
         cards.insertAdjacentHTML('afterbegin', cardTemplate);
         starRating(r.rating);
-        // allCards = document.getElementsByClassName('information');
-        // addButtonEv(allCards);
     });
 };
 
@@ -110,21 +109,25 @@ const starRating = (stars) => {
 
 const cards = document.getElementById('cards');
 
-const printSorted = (sortedArr, type, sort) => {
+const printSorted = (sortedArr, type, val, sort) => {
     cards.innerHTML = '';
+    if (!val) {
+        n = 10;
+    } else {
+        n = val * 10;
+    };
     if (type == 'alphabet') {
-        sortedArr.slice(0, 10);
-        sortedArr.map((r) => {
+        shortSortedData = sortedArr.slice(0, n);
+        shortSortedData.map((r) => {
+            console.log(shortSortedData);
             const cardTemplate = `
-                    <div class="col-sm-4">
+        <div class="col-sm-4">
             <div class="card border-dark mb-3" id="${r.id}" style="max-width: 18rem;">
-            <ul class="list-inline">
-                <li class="list-inline-item" id="star-place">
-                <i class="material-icons sm-icon">
-                star
-                </i>
-                </li>
-            </ul>
+                <ul class="list-inline">
+                    <li class="list-inline-item" id="star-place">
+                        <i class="material-icons sm-icon">star</i>
+                    </li>
+                </ul>
             <div class="card-header">
                 <ul class="list-inline" id="card-header">
                     <li class="list-inline-item">
@@ -138,9 +141,7 @@ const printSorted = (sortedArr, type, sort) => {
             <div class="card-body text-dark">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <i class="material-icons">
-                            location_city
-                        </i>
+                        <i class="material-icons">location_city</i>
                     </li>
                     <li class="list-inline-item">
                         <p class="card-title">Estado: <br> <span id="state">${r.address.state}</span></p>
@@ -148,9 +149,7 @@ const printSorted = (sortedArr, type, sort) => {
                 </ul>
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <i class="material-icons">
-                            house
-                        </i>
+                        <i class="material-icons">house</i>
                     </li>
                     <li class="list-inline-item">
                         <p class="card-title">Ciudad: <br> <span id="city">${r.address.city}</span></p>
@@ -158,27 +157,27 @@ const printSorted = (sortedArr, type, sort) => {
                 </ul>
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <i class="material-icons">
-                            web
-                        </i>
+                        <i class="material-icons">web</i>
                     </li>
                     <li class="list-inline-item">
                         <p class="card-title">Sitio web: <br> <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></p>
                     </li>
                 </ul>
             </div>
-            </div>
-            </div>`;
+        </div>`;
             if (sort == 'descendent') {
+                console.log('orden descendente');
                 cards.insertAdjacentHTML('beforeend', cardTemplate);
             } else if (sort == 'ascendent') {
+                console.log('orden ascendente');
                 cards.insertAdjacentHTML('afterbegin', cardTemplate);
             }
             starRating(r.rating);
         })
     } else if (type == 'rating') {
         console.log('ordenando por rating');
-        sortedArr.map((r) => {
+        shortSortedData = sortedArr.slice(0, n);
+        shortSortedData.map((r) => {
             const cardTemplate = `
              <div class="col-sm-4">
                 <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -233,7 +232,7 @@ const printSorted = (sortedArr, type, sort) => {
 }
 
 // sort alphabetically
-const alphabetically = (val) => {
+const alphabetically = (val, btn) => {
     cards.innerHTML = '';
     restaurants.sort((a, b) => {
         if (a.name < b.name) {
@@ -250,23 +249,23 @@ const alphabetically = (val) => {
     } else {
         sorting = 'descendent';
     }
-    printSorted(restaurants, 'alphabet', sorting);
+    printSorted(restaurants, 'alphabet', btn, sorting);
 };
 
-const starsNumber = (val) => {
+const starsNumber = (val, btn) => {
     cards.innerHTML = '';
     if (val == 3) {
         restaurants.sort((a, b) => {
             return (a.rating - b.rating)
         });
         console.log(restaurants);
-        printSorted(restaurants, 'rating')
+        printSorted(restaurants, 'rating', btn)
     } else {
         restaurants.sort((a, b) => {
             return (b.rating - a.rating)
         });
         console.log(restaurants);
-        printSorted(restaurants, 'rating')
+        printSorted(restaurants, 'rating', btn)
     };
 }
 
@@ -286,8 +285,15 @@ const buttons = document.getElementsByClassName('btn');
 
 for (let i = 0; i <= buttons.length; i ++) {
     buttons[i].addEventListener('click', () => {
-        const val = buttons[i].innerHTML;
-        printCard(restaurants, val);
+        const selected = document.getElementById('inlineFormCustomSelectPref').options.selectedIndex;
+        val = buttons[i].innerHTML;
+        if (selected == 0) {
+            printCard(restaurants, val);
+        } else if (selected == 1 || selected == 2) {
+            alphabetically(selected, val);
+        } else if (selected == 3 || selected == 4) {
+            starsNumber(selected, val);
+        }
     })
 }
 
