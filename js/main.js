@@ -97,6 +97,7 @@ const starRating = (stars) => {
             totalRating.push('<i class="material-icons sm-icon"> star_border</i>')
         };
     };
+    console.log(totalRating.join(''));
     starPlace.innerHTML = totalRating.join('');
 };
 
@@ -164,7 +165,7 @@ const printSorted = (sortedArr, type, sort) => {
             </div>`;
             if (sort == 'descendent') {
                 cards.insertAdjacentHTML('beforeend', cardTemplate);
-            } else {
+            } else if (sort == 'ascendent') {
                 cards.insertAdjacentHTML('afterbegin', cardTemplate);
             }
             starRating(r.rating);
@@ -172,7 +173,7 @@ const printSorted = (sortedArr, type, sort) => {
     } else if (type == 'rating') {
         console.log('ordenando por rating');
         sortedArr.map((r) => {
-                const cardTemplate = `
+            const cardTemplate = `
              <div class="col-sm-4">
                 <div class="card border-dark mb-3" style="max-width: 18rem;">
                 <ul class="list-inline">
@@ -219,10 +220,10 @@ const printSorted = (sortedArr, type, sort) => {
             </div>
         </div>
     </div>`;
-                cards.insertAdjacentHTML('afterbegin', cardTemplate);
-                starRating(r.rating);
-            })
-        }
+            cards.insertAdjacentHTML('afterbegin', cardTemplate);
+            starRating(r.rating);
+        })
+    }
 }
 
 // sort alphabetically

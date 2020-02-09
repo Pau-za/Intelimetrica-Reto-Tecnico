@@ -60,24 +60,94 @@
     font-size: 1em !important;
 }
 
-/* @media only screen and (min-width: 768px) {} */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    #copy-header {
+        top: -26em!important;
+    }
+
+    #search-form {
+        width: 290px;
+        top: -22em;
+    }
+
+    #inlineFormCustomSelectPref {
+        width: 46%;
+    }
+
+    form {
+        margin-left: 1%;
+    }
+
+    .all-cards {
+        margin-top: 5px;
+        margin-left: -6px!important;
+    }
+}
+
+@media only screen and (min-device-width : 481px) and (max-device-width : 990px) {
+    #search-form {
+        width: auto;
+    }
+
+    #copy-header {
+        top: -18em!important;
+        margin-top: 0px!important;
+    }
+
+    #search-form {
+        top: -13em;
+    }
+
+    form {
+        margin-left: 30px;
+    }
+
+    .all-cards {
+        margin-top: 193px;
+        margin-left: 76px;
+    }
+}
+
 
 /* mobile */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 992px) {
     .mobile {
         display: block;
     }
 
     .picture {
-        margin-bottom: -172px;
+        margin-bottom: -345px;
     }
 
     .all-cards {
-        margin-left: 6px;
+        margin-left: 12px;
     }
 
     body {
         position: relative;
-        width: 135%;
+        width: 100%;
+    }
+
+    #copy-header {
+        margin-top: 234px;
+    }
+
+    #inlineFormCustomSelectPref {
+        width: 56%;
+    }
+
+    #align-md {
+        margin-left: 8%;
+    }
+}
+
+@media only screen and (min-device-width : 992px) and (max-device-width : 1024px) {
+    #copy-header {
+        margin-top: 100px;
+    }
+
+    .all-cards {
+        margin-left: -14px;
+        margin-top: -245px;
     }
 }
