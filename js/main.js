@@ -1,4 +1,3 @@
-// Traer la data
 var restaurants = [];
 
 var allCards = '';
@@ -15,60 +14,52 @@ const printCard = (data, val) => {
         console.log(shortData);
         const cardTemplate = `
         <div class="col-lg-4 col-md-6 col-sm-12">
-<div class="card border-dark mb-3" style="max-width: 18rem;">
-<ul class="list-inline">
-    <li class="list-inline-item" id="star-place">
-        <i class="material-icons sm-icon">star</i>
-    </li>
-    
-</ul>
-<div class="card-header">
-    <ul class="list-inline" id="card-header">
-        <li class="list-inline-item">
-            <i class="material-icons">restaurant</i>
-        </li>
-        <li class="list-inline-item">
-            <h4 id="restaurant-name">${r.name}</h4>
-        </li>
-    </ul>
-</div>
-<div class="card-body text-dark">
-    <ul class="list-inline">
-        <li class="list-inline-item">
-            <i class="material-icons">
-                location_city
-            </i>
-        </li>
-        <li class="list-inline-item">
-            <p class="card-title">Estado: <br> <span id="state">${r.address.state}</span></p>
-        </li>
-    </ul>
-    <ul class="list-inline">
-        <li class="list-inline-item">
-            <i class="material-icons">
-                house
-            </i>
-        </li>
-        <li class="list-inline-item">
-            <p class="card-title">Ciudad: <br> <span id="city">${r.address.city}</span></p>
-        </li>
-    </ul>
-    <ul class="list-inline">
-        <li class="list-inline-item">
-            <i class="material-icons">
-                web
-            </i>
-        </li>
-        <li class="list-inline-item">
-            <p class="card-title">Sitio web: <br> <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></p>
-        </li>
-        <li class="list-inline-item d-flex justify-content-center">
-            <button id="${r.id}" type="button" class="info btn btn-info">Más información</button>
-        </li>
-    </ul>
-</div>
-</div>
-`;
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <ul class="list-inline">
+                    <li class="list-inline-item" id="star-place">
+                        <i class="material-icons sm-icon">star</i>
+                    </li>
+                </ul> 
+            <div class="card-header">
+                <ul class="list-inline" id="card-header">
+                    <li class="list-inline-item">
+                        <i class="material-icons">restaurant</i>
+                    </li>
+                    <li class="list-inline-item">
+                        <h4 id="restaurant-name">${r.name}</h4>
+                    </li>
+                </ul>
+            </div> 
+        <div class="card-body text-dark">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <i class="material-icons">location_city</i>
+                </li>
+                <li class="list-inline-item">
+                    <p class="card-title">Estado: <br> <span id="state">${r.address.state}</span></p>
+                </li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <i class="material-icons">house</i>
+                </li>
+                <li class="list-inline-item">
+                    <p class="card-title">Ciudad: <br> <span id="city">${r.address.city}</span></p>
+                </li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <i class="material-icons">web</i>
+                </li>
+                <li class="list-inline-item">
+                    <p class="card-title">Sitio web: <br> <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></p>
+                </li>
+                <li class="list-inline-item d-flex justify-content-center">
+                    <button id="${r.id}" type="button" class="info btn btn-info">Más información</button>
+                </li>
+            </ul>
+        </div>
+    </div>`;
         cards.insertAdjacentHTML('afterbegin', cardTemplate);
         starRating(r.rating);
     });
@@ -76,8 +67,6 @@ const printCard = (data, val) => {
 
 var infoBtn = [];
 
-// maps
-// Initialize and add the map
 const initMap = (lat, long) => {
     const coords = {
         lat: lat,
@@ -88,27 +77,30 @@ const initMap = (lat, long) => {
             zoom: 15,
             center: coords
         });
-    var marker = new google.maps.Marker({
+    const marker = new google.maps.Marker({
         position: coords,
         map: map
     });
-}
+};
 
-// función que recibo id y recorre data para encontrarlo y traer la info de ese 
-// elemento y pintarla en sus respectivos lugares
 
 const getSelectedEl = (id, data) => {
     data.map((el) => {
         if (el.id == id) {
+            street = el.address.street;
+            city = el.address.city;
+            state = el.address.state;
+            const completeAddress = street + ', ' + city + ', ' + state;
             document.getElementById('rest-name').innerHTML = el.name;
             document.getElementById('phone').innerHTML = el.contact.phone;
             document.getElementById('email').innerHTML = el.contact.email;
             document.getElementById('site').innerHTML = el.contact.site;
-            document.getElementById('addreess').innerHTML = el.address.street + ', ' + el.address.city + ', ' + el.address.state;
+            document.getElementById('address').innerHTML = completeAddress;
             initMap(el.address.location.lat, el.address.location.lng);
-        }
-    })
-}
+            starRating(el.rating, 'word');
+        };
+    });
+};
 
 const watchInfo = (btns) => {
     for (let i = 0; i < btns.length; i++) {
@@ -117,8 +109,7 @@ const watchInfo = (btns) => {
             document.getElementById('more-info').classList.remove('hidden');
             const idRest = btns[i].id;
             getSelectedEl(idRest, restaurants);
-            // initMap(19.440057053713137, -99.12704709742486);
-        })
+        });
     };
 };
 
@@ -128,23 +119,21 @@ $.ajax({
     dataType: 'JSON',
     crossDomain: true,
     success: (data) => {
-        console.log(data);
         printCard(data);
         return restaurants = data;
     },
     error: (error) => {
-        console.log(error);
+        alert(error);
     },
     complete: () => {
-        console.log('acá termina el spinner');
         infoBtn = $('.info');
         watchInfo(infoBtn);
     }
 });
 
 
-const starRating = (stars) => {
-    let totalRating = [];
+const starRating = (stars, word) => {
+    var totalRating = [];
     const starPlace = document.getElementById('star-place');
     for (let i = stars; i >= 1; i--) {
         totalRating.push('<i class="material-icons sm-icon"> star</i>');
@@ -154,8 +143,12 @@ const starRating = (stars) => {
             totalRating.push('<i class="material-icons sm-icon"> star_border</i>')
         };
     };
-    console.log(totalRating.join(''));
-    starPlace.innerHTML = totalRating.join('');
+    if (word) {
+        uniqueRating = document.getElementById('unique-rating');
+        uniqueRating.innerHTML = totalRating.join('');
+    } else {
+        starPlace.innerHTML = totalRating.join('');
+    };
 };
 
 
@@ -237,10 +230,9 @@ const printSorted = (sortedArr, type, val, sort) => {
              <div class="col-sm-4">
                 <div class="card border-dark mb-3" style="max-width: 18rem;">
                 <ul class="list-inline">
-                <li class="list-inline-item" id="star-place">
-                    <i class="material-icons sm-icon">star</i> 
-                </li>
-                
+                    <li class="list-inline-item" id="star-place">
+                        <i class="material-icons sm-icon">star</i> 
+                    </li>
                 </ul>
             <div class="card-header">
                 <ul class="list-inline" id="card-header">
@@ -285,9 +277,9 @@ const printSorted = (sortedArr, type, val, sort) => {
     </div>`;
             cards.insertAdjacentHTML('afterbegin', cardTemplate);
             starRating(r.rating);
-        })
-    }
-}
+        });
+    };
+};
 
 // sort alphabetically
 const alphabetically = (val, btn) => {
@@ -316,16 +308,14 @@ const starsNumber = (val, btn) => {
         restaurants.sort((a, b) => {
             return (a.rating - b.rating)
         });
-        console.log(restaurants);
         printSorted(restaurants, 'rating', btn)
     } else {
         restaurants.sort((a, b) => {
             return (b.rating - a.rating)
         });
-        console.log(restaurants);
         printSorted(restaurants, 'rating', btn)
     };
-}
+};
 
 const sortSelect = document.getElementById('inlineFormCustomSelectPref');
 
@@ -335,7 +325,7 @@ sortSelect.addEventListener('change', () => {
         alphabetically(valueSelected);
     } else {
         starsNumber(valueSelected);
-    }
+    };
 });
 
 // click en botones de paginación
@@ -351,21 +341,6 @@ for (let i = 0; i <= buttons.length; i++) {
             alphabetically(selected, val);
         } else if (selected == 3 || selected == 4) {
             starsNumber(selected, val);
-        }
-    })
-}
-
-
-
-
-
-// $(window).on('load', () => {
-//     const infoBtn = $('.info');
-//     console.log('---------->');
-//     console.log($(infoBtn))
-//     // $(infoBtn).each((e) => {
-//     //     infoBtn[e].click(() => {
-//     //         console.log(infoBtn[e]);
-//     //     })
-//     // })
-// })
+        };
+    });
+};
