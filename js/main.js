@@ -11,7 +11,6 @@ const printCard = (data, val) => {
     cards.innerHTML = '';
     shortData = data.slice(0, n);
     shortData.map((r) => {
-        console.log(shortData);
         const cardTemplate = `
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -55,7 +54,7 @@ const printCard = (data, val) => {
                     <p class="card-title">Sitio web: <br> <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></p>
                 </li>
                 <li class="list-inline-item d-flex justify-content-center">
-                    <button id="${r.id}" type="button" class="info btn btn-info">Más información</button>
+                    <a id="${r.id}" class="info btn btn-primary" href="# + ${r.id}" role="button">Más información</a>
                 </li>
             </ul>
         </div>
@@ -83,6 +82,16 @@ const initMap = (lat, long) => {
     });
 };
 
+var goBackBtn;
+
+
+const clickGoBack = (element) => {
+    element.addEventListener('click', () => {
+        document.getElementById('more-info').classList.add('hidden');
+        document.getElementById('general').classList.remove('hidden');
+    });
+};
+
 
 const getSelectedEl = (id, data) => {
     data.map((el) => {
@@ -98,8 +107,10 @@ const getSelectedEl = (id, data) => {
             document.getElementById('address').innerHTML = completeAddress;
             initMap(el.address.location.lat, el.address.location.lng);
             starRating(el.rating, 'word');
+            goBackBtn = document.getElementById('go-back');
         };
     });
+    clickGoBack(goBackBtn);
 };
 
 const watchInfo = (btns) => {
@@ -164,7 +175,6 @@ const printSorted = (sortedArr, type, val, sort) => {
     if (type == 'alphabet') {
         shortSortedData = sortedArr.slice(0, n);
         shortSortedData.map((r) => {
-            console.log(shortSortedData);
             const cardTemplate = `
         <div class="col-sm-4">
             <div class="card border-dark mb-3" id="${r.id}" style="max-width: 18rem;">
@@ -208,7 +218,7 @@ const printSorted = (sortedArr, type, val, sort) => {
                         <p class="card-title">Sitio web: <br> <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></p>
                     </li>
                     <li class="list-inline-item d-flex justify-content-center">
-                        <button id="${r.id}" type="button" class="info btn btn-info">Más información</button>
+                        <a id="${r.id}" class="info btn btn-primary" href="# + ${r.id}" role="button">Más información</a>
                     </li>
                 </ul>
             </div>
@@ -223,7 +233,6 @@ const printSorted = (sortedArr, type, val, sort) => {
             starRating(r.rating);
         })
     } else if (type == 'rating') {
-        console.log('ordenando por rating');
         shortSortedData = sortedArr.slice(0, n);
         shortSortedData.map((r) => {
             const cardTemplate = `
@@ -269,7 +278,7 @@ const printSorted = (sortedArr, type, val, sort) => {
                         <p class="card-title">Sitio web: <br> <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></p>
                     </li>
                     <li class="list-inline-item d-flex justify-content-center">
-                        <button id="${r.id}" type="button" class="info btn btn-info">Más información</button>
+                        <a id="${r.id}" class="info btn btn-primary" href="# + ${r.id}" role="button">Más información</a>
                     </li>
                 </ul>
             </div>
@@ -326,9 +335,11 @@ sortSelect.addEventListener('change', () => {
     } else {
         starsNumber(valueSelected);
     };
+    btns = document.getElementsByClassName('info');
+    watchInfo(btns);
 });
 
-// click en botones de paginación
+
 const buttons = document.getElementsByClassName('pgn');
 
 for (let i = 0; i <= buttons.length; i++) {
@@ -342,5 +353,7 @@ for (let i = 0; i <= buttons.length; i++) {
         } else if (selected == 3 || selected == 4) {
             starsNumber(selected, val);
         };
+        btns = document.getElementsByClassName('info');
+        watchInfo(btns);
     });
 };

@@ -24,6 +24,10 @@
     z-index: 1;
 }
 
+#info {
+    cursor: pointer;
+}
+
 #name {
     font-size: xx-large;
 }
@@ -70,6 +74,11 @@
         top: -22em;
     }
 
+    #map {
+        height: 300px;
+        width: 100%;
+    }
+
     #inlineFormCustomSelectPref {
         width: 45%!important;
     }
@@ -87,6 +96,11 @@
 @media only screen and (min-device-width : 481px) and (max-device-width : 768px) {
     #search-form {
         width: auto;
+    }
+
+    #map {
+        height: 380px;
+        width: 100%;
     }
 
     #copy-header {
