@@ -1,7 +1,15 @@
 /* desk */
 
+.all-cards {
+    margin-left: 37px;
+    margin-top: -131px;
+}
 
 .mobile {
+    display: none;
+}
+
+.hidden {
     display: none;
 }
 
@@ -43,15 +51,33 @@
     text-align: end;
 }
 
-.sm-icon {
-    font-size: 1em!important;
+#map {
+    height: 400px;
+    width: 100%;
 }
 
-@media only screen and (min-width: 768px) {}
+.sm-icon {
+    font-size: 1em !important;
+}
+
+/* @media only screen and (min-width: 768px) {} */
 
 /* mobile */
 @media only screen and (max-width: 768px) {
     .mobile {
         display: block;
+    }
+
+    .picture {
+        margin-bottom: -172px;
+    }
+
+    .all-cards {
+        margin-left: 6px;
+    }
+
+    body {
+        position: relative;
+        width: 135%;
     }
 }

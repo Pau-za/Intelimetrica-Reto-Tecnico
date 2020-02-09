@@ -13,15 +13,15 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                    <h1><i class="material-icons">
-                    room_service
-                </i>
-                MELP</h1>
+                <h1><i class="material-icons">
+                        room_service
+                    </i>
+                    MELP</h1>
             </a>
-            <!-- <a class="navbar-brand mb-0 h1" id="name" href="#">MELP</a> -->
+            <!-- <a class="navbar-brand mb-0 h1" id="name" href="#">MELP</a>
             <button class="navbar-toggler mobile" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -36,11 +36,11 @@
                     <i class="material-icons white-color" id="search-i">search</i>
                 </button>
             </form>
-        </div>
+        </div> -->
     </nav>
 
-    <seccion>
-        <div class="container">
+    <section>
+        <div class="container picture">
             <img id="header" src="./assets/756.jpg" alt="food" srcset="">
             <div id="copy-header">
                 <h1>MELP</h1>
@@ -53,8 +53,8 @@
                         <option selected>Ordenar por: </option>
                         <option value="1">Alfabéticamente A-Z</option>
                         <option value="2">Alfabéticamente Z-A</option>
-                        <option value="3">Ranking (ascendente)</option>
-                        <option value="3">Ranking (descendente)</option>
+                        <option value="3">Estrellas (descendente)</option>
+                        <option value="4">Estrellas (ascendente)</option>
                     </select>
                     <!-- <button type="submit" class="btn btn-primary my-1">Ord</button> -->
                 </form>
@@ -63,14 +63,22 @@
 
         <!-- Cards -->
         <div class="container">
-            <div id="cards" class="row">
+            <div id="cards" class="row all-cards">
             </div>
         </div>
-    </seccion>
+    </section>
+
+    <section class="hidden" id="more-info">
+        <h3>My Google Maps Demo</h3>
+        <!--The div element for the map -->
+        <div id="map"></div>
+    </section>
 
 
     <a href="https://www.freepik.es/fotos/comida">Foto de Comida creado por KamranAydinov - www.freepik.es</a>
 
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOB2EHJdOq1EumA4-sFI0zZOofpwIp0_8&callback=initMap"
+  type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
