@@ -18,9 +18,9 @@ const printCard = (data, val) => {
 <div class="card border-dark mb-3" style="max-width: 18rem;">
 <ul class="list-inline">
     <li class="list-inline-item" id="star-place">
-    <i class="material-icons sm-icon">
-    star
-    </i></li>
+        <i class="material-icons sm-icon">star</i>
+    </li>
+    
 </ul>
 <div class="card-header">
     <ul class="list-inline" id="card-header">
@@ -62,14 +62,64 @@ const printCard = (data, val) => {
         <li class="list-inline-item">
             <p class="card-title">Sitio web: <br> <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></p>
         </li>
+        <li class="list-inline-item d-flex justify-content-center">
+            <button id="${r.id}" type="button" class="info btn btn-info">Más información</button>
+        </li>
     </ul>
-</div>
 </div>
 </div>
 `;
         cards.insertAdjacentHTML('afterbegin', cardTemplate);
         starRating(r.rating);
     });
+};
+
+var infoBtn = [];
+
+// maps
+// Initialize and add the map
+const initMap = (lat, long) => {
+    const coords = {
+        lat: lat,
+        lng: long
+    };
+    const map = new google.maps.Map(
+        document.getElementById('map'), {
+            zoom: 15,
+            center: coords
+        });
+    var marker = new google.maps.Marker({
+        position: coords,
+        map: map
+    });
+}
+
+// función que recibo id y recorre data para encontrarlo y traer la info de ese 
+// elemento y pintarla en sus respectivos lugares
+
+const getSelectedEl = (id, data) => {
+    data.map((el) => {
+        if (el.id == id) {
+            document.getElementById('rest-name').innerHTML = el.name;
+            document.getElementById('phone').innerHTML = el.contact.phone;
+            document.getElementById('email').innerHTML = el.contact.email;
+            document.getElementById('site').innerHTML = el.contact.site;
+            document.getElementById('addreess').innerHTML = el.address.street + ', ' + el.address.city + ', ' + el.address.state;
+            initMap(el.address.location.lat, el.address.location.lng);
+        }
+    })
+}
+
+const watchInfo = (btns) => {
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', () => {
+            document.getElementById('general').classList.add('hidden');
+            document.getElementById('more-info').classList.remove('hidden');
+            const idRest = btns[i].id;
+            getSelectedEl(idRest, restaurants);
+            // initMap(19.440057053713137, -99.12704709742486);
+        })
+    };
 };
 
 $.ajax({
@@ -87,6 +137,8 @@ $.ajax({
     },
     complete: () => {
         console.log('acá termina el spinner');
+        infoBtn = $('.info');
+        watchInfo(infoBtn);
     }
 });
 
@@ -162,6 +214,9 @@ const printSorted = (sortedArr, type, val, sort) => {
                     <li class="list-inline-item">
                         <p class="card-title">Sitio web: <br> <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></p>
                     </li>
+                    <li class="list-inline-item d-flex justify-content-center">
+                        <button id="${r.id}" type="button" class="info btn btn-info">Más información</button>
+                    </li>
                 </ul>
             </div>
         </div>`;
@@ -220,6 +275,9 @@ const printSorted = (sortedArr, type, val, sort) => {
                     </li>
                     <li class="list-inline-item">
                         <p class="card-title">Sitio web: <br> <span id="web-site"><a href="${r.contact.site}">${r.contact.site}</a></span></p>
+                    </li>
+                    <li class="list-inline-item d-flex justify-content-center">
+                        <button id="${r.id}" type="button" class="info btn btn-info">Más información</button>
                     </li>
                 </ul>
             </div>
@@ -281,9 +339,9 @@ sortSelect.addEventListener('change', () => {
 });
 
 // click en botones de paginación
-const buttons = document.getElementsByClassName('btn');
+const buttons = document.getElementsByClassName('pgn');
 
-for (let i = 0; i <= buttons.length; i ++) {
+for (let i = 0; i <= buttons.length; i++) {
     buttons[i].addEventListener('click', () => {
         const selected = document.getElementById('inlineFormCustomSelectPref').options.selectedIndex;
         val = buttons[i].innerHTML;
@@ -297,41 +355,17 @@ for (let i = 0; i <= buttons.length; i ++) {
     })
 }
 
-// maps
-// Initialize and add the map
-const initMap = (lat, long) => {
-    // The location of Uluru
-    const coords = {
-        lat: lat,
-        lng: long
-    };
-    // The map, centered at Uluru
-    const map = new google.maps.Map(
-        document.getElementById('map'), {
-            zoom: 4,
-            center: coords
-        });
-    // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({
-        position: coords,
-        map: map
-    });
-}
 
-// const addButtonEv = (buttons) => {
-//     for (let i = 0; i < buttons.length; i++) {
-//         buttons[i].addEventListener('click', () => {
-//             console.log(buttons[i]);
-//         })
-//     };
-// };
 
-$(window).on('load', () => {
-    const buttons = $('.information');
-    console.log($('.information'))
-    $(buttons).each((e) => {
-        buttons[e].click(() => {
-            console.log(buttons[e]);
-        })
-    })
-})
+
+
+// $(window).on('load', () => {
+//     const infoBtn = $('.info');
+//     console.log('---------->');
+//     console.log($(infoBtn))
+//     // $(infoBtn).each((e) => {
+//     //     infoBtn[e].click(() => {
+//     //         console.log(infoBtn[e]);
+//     //     })
+//     // })
+// })

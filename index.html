@@ -23,7 +23,7 @@
         </div>
     </nav>
 
-    <section>
+    <section id="general" class="">
         <div class="container picture">
             <img id="header" src="./assets/756.jpg" alt="food" srcset="">
             <div id="copy-header">
@@ -53,27 +53,75 @@
 
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group mx-auto mr-2" role="group" aria-label="First group">
-              <button type="button" class="btn btn-secondary">1</button>
-              <button type="button" class="btn btn-secondary">2</button>
-              <button type="button" class="btn btn-secondary">3</button>
-              <button type="button" class="btn btn-secondary">4</button>
-              <button type="button" class="btn btn-secondary">5</button>
-              <button type="button" class="btn btn-secondary">6</button>
-              <button type="button" class="btn btn-secondary">7</button>
-              <button type="button" class="btn btn-secondary">8</button>
-              <button type="button" class="btn btn-secondary">9</button>
-              <button type="button" class="btn btn-secondary">10</button>
+                <button type="button" class="pgn btn btn-secondary">1</button>
+                <button type="button" class="pgn btn btn-secondary">2</button>
+                <button type="button" class="pgn btn btn-secondary">3</button>
+                <button type="button" class="pgn btn btn-secondary">4</button>
+                <button type="button" class="pgn btn btn-secondary">5</button>
+                <button type="button" class="pgn btn btn-secondary">6</button>
+                <button type="button" class="pgn btn btn-secondary">7</button>
+                <button type="button" class="pgn btn btn-secondary">8</button>
+                <button type="button" class="pgn btn btn-secondary">9</button>
+                <button type="button" class="pgn btn btn-secondary">10</button>
             </div>
+        </div>
+        <button id="${r.id}" type="button" class="info btn btn-info">Más información</button>
     </section>
 
     <section class="hidden" id="more-info">
-        <h3>My Google Maps Demo</h3>
-        <!--The div element for the map -->
-        <div id="map"></div>
+        <div class="card text-center container">
+            <div class="card-header" id="rest-name">Información de restaurante</div>
+            <div class="card-body">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <h4 class="card-title" d="rest-name"></h4>
+                    <li class="list-inline-item" id="star-place">
+                        <!-- <i class="material-icons sm-icon">star</i> -->
+                    </li>
+                    </li>
+                </ul>
+                <h5>Contacto:</h5>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <i class="material-icons">smartphone</i>
+                    </li>
+                    <li class="list-inline-item" id="phone"></li>
+                </ul>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <i class="material-icons">email</i>
+                    </li>
+                    <li class="list-inline-item" id="email"></li>
+                </ul>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <i class="material-icons">web</i>
+                    </li>
+                    <li class="list-inline-item" id="site"></li>
+                </ul>
+                <h5>Ubicación:</h5>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <i class="material-icons">person_pin_circle</i>
+                    </li>
+                    <li class="list-inline-item" id="address"></li>
+                </ul>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                <div class="d-flex justify-content-center">
+                    <div id="map"></div>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+
+            </div>
+        </div>
     </section>
 
+    <nav class="navbar navbar-dark bg-dark fixed-bottom">
+        <a href="https://www.freepik.es/fotos/comida">Foto de Comida creado por KamranAydinov - www.freepik.es</a>
+    </nav>
 
-    <a href="https://www.freepik.es/fotos/comida">Foto de Comida creado por KamranAydinov - www.freepik.es</a>
+
 
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOB2EHJdOq1EumA4-sFI0zZOofpwIp0_8&callback=initMap"
