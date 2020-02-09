@@ -71,7 +71,7 @@
     }
 
     #inlineFormCustomSelectPref {
-        width: 46%;
+        width: 45%!important;
     }
 
     form {
@@ -80,11 +80,11 @@
 
     .all-cards {
         margin-top: 5px;
-        margin-left: -6px!important;
+        margin-left: 12px!important;
     }
 }
 
-@media only screen and (min-device-width : 481px) and (max-device-width : 990px) {
+@media only screen and (min-device-width : 481px) and (max-device-width : 768px) {
     #search-form {
         width: auto;
     }
@@ -104,7 +104,7 @@
 
     .all-cards {
         margin-top: 193px;
-        margin-left: 76px;
+        margin-left: 76px!important;
     }
 }
 
@@ -139,6 +139,10 @@
     #align-md {
         margin-left: 8%;
     }
+
+    #search-form {
+        width: auto;
+    }
 }
 
 @media only screen and (min-device-width : 992px) and (max-device-width : 1024px) {
@@ -151,3 +155,4 @@
         margin-top: -245px;
     }
 }
+

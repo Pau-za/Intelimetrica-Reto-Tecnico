@@ -3,8 +3,15 @@ var restaurants = [];
 
 var allCards = '';
 
-const printCard = (data) => {
-    data.map((r) => {
+const printCard = (data, val) => {
+    if (!val) {
+        n = 10;
+    } else {
+        n = val * 10;
+    };
+    cards.innerHTML = '';
+    shortData = data.slice(0, n);
+    shortData.map((r) => {
         const cardTemplate = `
         <div class="col-lg-4 col-md-6 col-sm-12">
 <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -13,7 +20,6 @@ const printCard = (data) => {
     <i class="material-icons sm-icon">
     star
     </i></li>
-    <li class="list-inline-item"><a href="#more-info" id="${r.id}" class="information btn btn-primary">Más información</a></li>
 </ul>
 <div class="card-header">
     <ul class="list-inline" id="card-header">
@@ -107,6 +113,7 @@ const cards = document.getElementById('cards');
 const printSorted = (sortedArr, type, sort) => {
     cards.innerHTML = '';
     if (type == 'alphabet') {
+        sortedArr.slice(0, 10);
         sortedArr.map((r) => {
             const cardTemplate = `
                     <div class="col-sm-4">
@@ -117,7 +124,6 @@ const printSorted = (sortedArr, type, sort) => {
                 star
                 </i>
                 </li>
-                <li class="list-inline-item"><a href="#more-info" id="${r.id}" class="information btn btn-primary">Más información</a></li>
             </ul>
             <div class="card-header">
                 <ul class="list-inline" id="card-header">
@@ -180,7 +186,7 @@ const printSorted = (sortedArr, type, sort) => {
                 <li class="list-inline-item" id="star-place">
                     <i class="material-icons sm-icon">star</i> 
                 </li>
-                <li class="list-inline-item"><a href="#more-info" id="${r.id}" class="information btn btn-primary">Más información</a></li>
+                
                 </ul>
             <div class="card-header">
                 <ul class="list-inline" id="card-header">
@@ -274,6 +280,16 @@ sortSelect.addEventListener('change', () => {
         starsNumber(valueSelected);
     }
 });
+
+// click en botones de paginación
+const buttons = document.getElementsByClassName('btn');
+
+for (let i = 0; i <= buttons.length; i ++) {
+    buttons[i].addEventListener('click', () => {
+        const val = buttons[i].innerHTML;
+        printCard(restaurants, val);
+    })
+}
 
 // maps
 // Initialize and add the map
